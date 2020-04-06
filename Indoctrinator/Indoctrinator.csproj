@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <LangVersion>8</LangVersion>
+    <MountAndBlade>D:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</MountAndBlade>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(MountAndBlade)\bin\Win64_Shipping_Client\TaleWorlds.*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /Y &quot;$(ProjectDir)SubModule.xml&quot; &quot;$(MountAndBlade)\Modules\$(ProjectName)\&quot;&#xD;&#xA;xcopy /Y &quot;$(OutDir)*&quot; &quot;$(MountAndBlade)\Modules\$(ProjectName)\bin\Win64_Shipping_Client\&quot;" />
+  </Target>
+
+</Project>
